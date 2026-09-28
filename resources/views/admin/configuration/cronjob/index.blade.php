@@ -1,0 +1,576 @@
+@extends('admin.layouts.master')
+@section('title')
+    Cronjob Settings
+@endsection
+@section('style')
+    <link href="{{ URL::asset('assets/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css"/>
+    <link href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css" rel="stylesheet"
+          type="text/css"/>
+    <style type="text/css">
+        div.dataTables_wrapper div.dataTables_filter input {
+            border-color: var(--vz-input-border);
+            background-color: var(--vz-input-bg);
+            color: var(--vz-body-color);
+            line-height: 1.5;
+            padding: 0.5rem 0.9rem 0.5rem 1.025rem;
+            border-radius: 0.25rem;
+            font-size: .8125rem;
+        }
+        .telegram-icon{
+            color: #2a99cb;
+            font-size: 20px;
+        }
+        .email-icon{
+            color: #c61b1b;
+            font-size: 20px;
+        }
+        .web-icon{
+            color: #4f4040;
+            font-size: 20px;
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"
+          type="text/css"/>
+    <link href="{{ asset("assets/libs/tagify/tagify.css") }}" rel="stylesheet"
+          type="text/css"/>
+@endsection
+@section('content')
+    <form class="row needs-validation" id="mainForm" novalidate>
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header align-items-center d-flex">
+                    <div class="flex-grow-1">
+                        <h4 class="card-title mb-0 ">Cronjob Settings</h4>
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Configuration</a></li>
+                            <li class="breadcrumb-item active">Cronjob Settings</li>
+                        </ol>
+                    </div>
+                    <div class="flex-shrink-0">
+                        <div class="form-check form-switch form-switch-right form-switch-md">
+                            @can("Email Settings Create")
+                                <button type="button" id="newBtn" class="btn btn-danger add-btn action-add">
+                                    <i class="ri-add-line align-bottom me-1"></i> Add New
+                                </button>
+                            @endcan
+                            <button type="submit" class="btn btn-success d-none action-save" id="saveBtn">Save</button>
+                            @can("Email Settings Edit")
+                                <button type="button" class="btn btn-primary d-none action-edit" id="editBtn">Edit</button>
+                            @endcan
+                            @can("Email Settings Delete")
+                                <button type="button" class="btn btn-danger d-none action-delete" id="deleteBtn">Delete</button>
+                            @endcan
+                            <button type="button" class="btn btn-light d-none action-close" id="closeBtn">Close</button>
+                            @can("Email Settings Delete")
+                                <button type="button" class="btn btn-soft-danger action-delete" id="multiDeleteBtn"
+                                        onClick="deleteMultiple()"><i
+                                        class="ri-delete-bin-2-line"></i></button>
+                            @endcan
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="collapse slideIn" id="collapseContactForm">
+                <div class="card">
+                    <div class="card-body">
+                        <div>
+                            <div class="row">
+
+                                <div class="col-2">Title *</div>
+                                <div class="col-4">
+                                    <input type="hidden" id="id" name="id">
+                                    <input type="text" class="form-control inputs" name="title"
+                                           id="title"
+                                           placeholder="Enter title">
+                                    <div class="invalid-feedback">
+                                        Please choose title.
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="col-2 mt-2">Associate with Job *</div>
+                                <div class="col-4 mt-2">
+                                    @php $events = getClassFileNames();
+
+                                    @endphp
+                                    <select name="event" id="event" class="form-control select2 inputs">
+                                        @foreach($events as $event)
+                                            <option value="{{$event}}">{{$event}}</option>
+                                        @endforeach
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Please select event
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="col-2 mt-2">Frequency *</div>
+                                <div class="col-4 mt-2">
+                            <?php
+                                $timelist = array(
+                                    '->everyMinute()' => 'Every Minute',
+                                    '->everyFiveMinutes()' => 'Every Five Minutes',
+                                    '->everyTenMinutes()' => 'Every Ten Minutes',
+                                    '->everyFifteenMinutes()' => 'Every Fifteen Minutes',
+                                    '->everyThirtyMinutes()' => 'Every Thirty Minutes',
+                                    '->hourly()' => 'Hourly',
+                                    '->hourlyAt(17)' => 'Hourly At 17',
+                                    '->daily()' => 'Run the task every day at midnight',
+                                    '->dailyAt(\'13:00\')' => 'Daily At 13:00',
+                                    '->twiceDaily(1, 13)' => 'Twice Daily 1, 13',
+                                    '->weekly()' => 'Weekly',
+                                    '->weeklyOn(1, \'8:00\')' => 'Weekly On 1, 8:00',
+                                    '->monthly()' => 'Monthly',
+                                    '->monthlyOn(4, \'15:00\')' => 'Monthly On 4, 15:00',
+                                    '->quarterly()' => 'Quarterly',
+                                    '->yearly()' => 'Yearly',
+                                    '->between(\'8:00\', \'16:00\')' => 'Between 8:00, 16:00',
+                                    '->weekdays()' => 'Weekdays',
+                                    '->saturdays()' => 'Saturdays',
+                                    '->sundays()' => 'Sundays',
+                                    '->mondays()' => 'Mondays',
+                                    '->tuesdays()' => 'Tuesdays',
+                                    '->wednesdays()' => 'Wednesdays',
+                                    '->thursdays()' => 'Thursdays',
+                                    '->fridays()' => 'Fridays',
+                                    '->weekends()' => 'Weekends',
+                                    '->days([1, 3, 5])' => 'Days 1, 3, 5',
+                                    '->mondaysAt(\'13:00\')' => 'Mondays At 13:00',
+                                    '->tuesdaysAt(\'13:00\')' => 'Tuesdays At 13:00',
+                                    '->wednesdaysAt(\'13:00\')' => 'Wednesdays At 13:00',
+                                    '->thursdaysAt(\'13:00\')' => 'Thursdays At 13:00',
+                                    '->fridaysAt(\'13:00\')' => 'Fridays At 13:00',
+                                    '->saturdaysAt(\'13:00\')' => 'Saturdays At 13:00',
+                                    '->sundaysAt(\'13:00\')' => 'Sundays At 13:00',
+                                    '->weekdaysAt(\'13:00\')' => 'Weekdays At 13:00',
+                                    '->weekendsAt(\'13:00\')' => 'Weekends At 13:00',
+                                    '->between(\'13:00\', \'14:00\')' => 'Between 13:00, 14:00',
+                                    '->weekdays()->between(\'13:00\', \'14:00\')' => 'Weekdays Between 13:00, 14:00',
+                                    '->weekends()->between(\'13:00\', \'14:00\')' => 'Weekends Between 13:00, 14:00',
+                                    '->mondays()->between(\'13:00\', \'14:00\')' => 'Mondays Between 13:00, 14:00',
+                                    '->tuesdays()->between(\'13:00\', \'14:00\')' => 'Tuesdays Between 13:00, 14:00',
+                                );
+
+                                ?>
+
+                                    <select class="form-control inputs" id="frequency"  required name="frequency">
+
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+                            <div class="row mt-2" id="commandView">
+                                <div class="col-2"></div>
+                                <div class="col-3"><code>Every Minute</code></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2 mt-2">Status</div>
+                                <div class="col-4 mt-2">
+                                    <div class="form-check form-switch form-switch-lg form-switch-success"
+                                         dir="ltr">
+                                        <input type="checkbox" name="status" class="form-check-input"
+                                               id="statusCheckbox"
+                                               checked>
+                                        <label class="form-check-label" for="statusCheckbox"></label>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="row">
+        <div class="col-xxl-12">
+            <div class="card" id="contactList">
+                <div class="card-body">
+                    <table id="contacts-table" class="table align-middle" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th scope="col" style="width: 50px;">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="checkAll" value="option"
+                                           data-com.bitwarden.browser.user-edited="yes">
+                                </div>
+                            </th>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Event</th>
+                            <th>Medium</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+@section('script')
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="{{ asset("assets/libs/tagify/tagify.min.js") }}"></script>
+        {{-- <script src=" "></script> --}}
+
+
+    <script>
+        var isUpdate = false;
+
+        var ccInput = document.querySelector("#cc");
+        var bccInput = document.querySelector("#bcc");
+
+        var emailPattenRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+        let ccTagify = null;
+        let bccTagify = null;
+
+
+        const initTagify = () => {
+            if (ccTagify != null) {
+                ccTagify.destroy()
+                bccTagify.destroy()
+            }
+
+            ccTagify = new Tagify(ccInput, {
+                pattern: emailPattenRegex,
+            });
+            bccTagify = new Tagify(bccInput, {
+                pattern: emailPattenRegex,
+            });
+        }
+
+        initTagify()
+
+        function toggleForm(show) {
+            if (show == undefined) {
+                $("#collapseContactForm").toggleClass("show")
+                return
+            }
+            if (show) {
+                $("#collapseContactForm").addClass("show");
+            } else {
+                $("#saveBtn, #closeBtn, #editBtn, #deleteBtn").addClass("d-none");
+                $("#newBtn, #multiDeleteBtn").removeClass("d-none");
+                $("#collapseContactForm").removeClass("show");
+            }
+        }
+
+        $("#checkAll").change(function () {
+            $(".selectable-checkbox").prop("checked", this.checked)
+        })
+
+
+        $("#newBtn").click(function () {
+            @can("Email Settings Create")
+                isUpdate = false;
+            $(".inputs").prop("disabled", false);
+            $("select.inputs").val("").trigger("change");
+            $("#mainForm").trigger("reset")
+            $("#id").val("")
+            $("#saveBtn, #closeBtn").removeClass("d-none");
+            $("#newBtn, #editBtn, #deleteBtn, #multiDeleteBtn").addClass("d-none");
+            toggleForm(true)
+            @endcan
+        });
+
+        $(document).on("click", "#editBtn", function () {
+            @can("Email Settings Edit")
+            $(".inputs").prop("disabled", false)
+            editData($('#id').val());
+            $("#saveBtn, #closeBtn").removeClass("d-none");
+            $("#newBtn, #editBtn, #deleteBtn, #multiDeleteBtn").addClass("d-none");
+            @endcan
+        });
+
+        $(document).on('click', '.edit-link', function (event) {
+            @can("Email Settings Edit")
+            $(".inputs").prop("disabled", false)
+            let id = $(this).data('id');
+            editData(id);
+            @endcan
+        });
+
+        $(document).on("click", "#closeBtn", function () {
+            toggleForm(false)
+        })
+
+        $(document).on('click', '#deleteBtn', function (event) {
+            @can("Email Settings Delete")
+            deleteData($('#id').val());
+            @endcan
+        });
+
+
+
+        $(document).on('submit', '#mainForm', function (event) {
+            $("#saveBtn").prop('disabled', true);
+            event.preventDefault();
+            var formData = new FormData($(this)[0]);
+
+
+            $.ajax({
+                url: isUpdate ? "{{route('admin.configuration.notification-settings.update')}}" : "{{route('admin.configuration.notification-settings.store')}}",
+                type: 'POST',
+                dataType: 'json',
+                data: formData,
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    $("#saveBtn").prop('disabled', false); //enable submit button
+                    if (result.status == '1') {
+                        resetForm()
+                        showToastify(result.msg, "success")
+                        toggleForm(false)
+                        dataTable.row().draw(); // redraw the datatable show we don't need to reload the page to see the changes
+                        isUpdate = false; // set isUpdate to false so that when we try to add new category it will be create request
+                    } else if (result.status == '2') {
+                        $("#saveBtn").prop('disabled', false);
+                        let error_message = '';
+                        $.each(result.errors, function (key, value) {
+                            error_message += '' + key + ': ' + value + ' | ';
+                        });
+                        showToastify(error_message, "error")
+                    } else {
+                        $("#saveBtn").prop('disabled', false);
+                        swal("Oops!", result.msg, "error");
+                    }
+                },
+                error: function (jqXhr, json, errorThrown) {
+                    $("#saveBtn").prop('disabled', false);
+                    let data = jqXhr.responseJSON;
+                    if (data.errors) {
+                        $.each(data.errors, function (index, item) {
+                            showToastify(item[0], "error")
+
+                        })
+                    }
+                    if (jqXhr.status == 500 || jqXhr.status == 400) {
+                        showToastify(data.message, "error")
+                    }
+                },
+            });
+        });
+
+        let dataTable = $('#contacts-table').DataTable({ //datatable initialization
+            "order": [
+                [0, "DESC"]
+            ],
+            language: {
+                searchPlaceholder: "Search notification settings"
+            },
+            responsive: true,
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                url: "{{route('admin.configuration.notification-settings.datatable')}}",
+                type: "post",
+                error: function () {
+                    $(".users-error").html("");
+                    $("#contacts-table").append('<tbody class="users-error"><tr><th colspan="3">No data found in the server</th></tr></tbody>');
+                    $("#dataTable_processing").css("display", "none");
+                }
+            },
+
+            "aoColumns": [
+                {
+                    data: null,
+                    orderable: false,
+                },
+                {
+                    data: 'id',
+                    name: 'id',
+                },
+                {
+                    data: 'title',
+                    name: 'title',
+                },
+                {
+                    data: "class_name",
+                    name: "class_name",
+                },
+                {
+                    data: null,
+                    orderable: false,
+
+                },
+
+                {
+                    data: null,
+                    orderable: false,
+
+                },
+                {
+                    data: null,
+                    orderable: false,
+                }
+            ],
+            "columnDefs": [
+                {
+                    "targets": 0,
+                    orderable: true,
+                    "data": "id",
+                    render: function (type, row, data, meta) {
+                        return `<div class="form-check"><input class="form-check-input selectable-checkbox" type="checkbox" name="chk_child" value="${data.id}"></div>`;
+                    }
+                },
+                {
+                    targets: 2,
+                    orderable: false,
+                    visible: true,
+                    render: function (type, row, data, meta) {
+                        return `<a href="javascript:void(0)" class="text-primary" onclick="viewData('` + data.id + `')">` + data.title + `</a>`;
+                    }
+                },{
+                    targets: 4,
+                    orderable: false,
+                    visible: true,
+                    render: function (type, row, data, meta) {
+                        let medium = JSON.parse(data.medium);
+                        let withIcon = '';
+                        $.each(medium, function (index, item){
+                            console.log(item);
+                            if(item == 'WEB'){
+                                withIcon+='<i class="bx bxl-internet-explorer web-icon"></i> '
+                            }else if(item == 'EMAIL'){
+                                withIcon+='<i class="bx bxl-gmail email-icon"></i> '
+                            }else if(item == 'TELEGRAM'){
+                                withIcon+='<i class="bx bxl-telegram telegram-icon"></i> '
+                            }
+                        });
+                        return withIcon;
+                    }
+                },
+                {
+                    targets: 5,
+                    orderable: false,
+                    visible: true,
+                    render: function (type, row, data, meta) {
+                        let disabled = true;
+                        @can("Email Settings Edit")
+                            disabled = false;
+                        @endcan
+                        if (data.status == '1') {
+                            return `<div  class="form-check form-switch form-switch-lg form-switch-success" dir="ltr">
+                                        <input ${disabled ? "disabled" : ""} type="checkbox" data-id="${data.id}" data-do="0" name="status" class="form-check-input status-change" checked></div>`;
+                        } else {
+                            return `<div  class="form-check form-switch form-switch-lg form-switch-success" dir="ltr">
+                                        <input ${disabled ? "disabled" : ""} data-id="${data.id}" data-do="1" type="checkbox" name="status" class="form-check-input status-change"></div>`;
+                        }
+                    }
+                },
+                {
+                    targets: -1,
+                    orderable: false,
+                    visible: true,
+                    render: function (type, row, data, meta) {
+                        return `<div class="dropdown d-inline-block">
+                            <button class="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="ri-more-fill align-middle"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a data-id="` + data.id + `" class="dropdown-item edit-item-btn edit-link"><i class="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
+                                <li>
+                                    <a  data-id="` + data.id + `" class="dropdown-item remove-item-btn delete-link">
+                                        <i class="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>`
+                    }
+                }
+            ]
+        });
+
+        function resetForm() {
+            $("#mainForm").removeClass("was-validated");
+            $("#mainForm").trigger("reset");
+            $(".inputs").val("").trigger("change");
+            initTagify()
+        }
+
+
+
+        $('#contacts-table tbody').on('change', 'a.delete-link', function () {
+            let id = $(this).data('id');
+            deleteData(id)
+        });
+        $('#contacts-table tbody').on('change', 'input.status-change', function () {
+            // change property category status based on button class and taking id from button data attribute
+            @can("Email Settings Edit")
+            let id = $(this).data('id');
+            let action = $(this).data('do');
+            let formData = {
+                id: id,
+                action: action
+            }
+            $.ajax({
+                type: "POST",
+                url: "{{route('admin.configuration.notification-settings.status')}}",
+                data: formData,
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status == '1') {
+                        showToastify(data.msg, "success")
+                        dataTable.row().draw();
+                    }
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+            @endcan
+        });
+
+
+
+
+        function getFrequency(){
+
+       $.ajax({
+                type: "GET",
+                url: "{{route('admin.configuration.cronjobs.timelist')}}",
+                dataType: 'json',
+                success: function (data) {
+                    let options = '';
+                    $.each(data, function (key, value) {
+
+                    options += `<option value="${value}">${value.title}</option>`;
+
+
+                    })
+                $("#frequency").html(options);
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+        }
+
+         getFrequency()
+
+         dataTable.on('draw.dt', function() {
+            $(".chk_child").prop("checked", false);
+            $('.multi_options').remove();
+            $('#checkAll').prop("checked", false);
+        });
+        $("#sidebarConfiguration").addClass('collapse show');
+        $("#configureNotificationSidebar").addClass('active');
+    </script>
+@endsection

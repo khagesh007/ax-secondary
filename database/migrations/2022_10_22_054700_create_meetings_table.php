@@ -1,0 +1,45 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('meetings', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('lead_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('lead_follow_up_id')->nullable()->constrained('lead_follow_ups')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('contact_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('contact_follow_up_id')->nullable()->constrained('contact_follow_ups')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('subject', 255)->nullable();
+            $table->string('location')->nullable();
+            $table->dateTime('start_time')->nullable();
+            $table->dateTime('end_time')->nullable();
+            $table->text('description')->nullable();
+            $table->enum('status', ['PENDING', 'RUNNING', 'COMPLETED', 'CANCELED'])->default('PENDING');
+            $table->foreignId("created_by_id")->nullable()->constrained("users")->cascadeOnUpdate()->nullOnDelete();
+            $table->foreignId("updated_by_id")->nullable()->constrained("users")->cascadeOnUpdate()->nullOnDelete();
+            $table->softDeletes();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('meetings');
+    }
+};

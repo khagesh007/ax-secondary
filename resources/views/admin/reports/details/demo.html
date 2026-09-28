@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scatter Chart with Chart.js</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+
+</head>
+<body>
+
+<canvas id="scatterChart" width="400" height="400"></canvas>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var data = [{
+                date: '2023-11-10',
+                time: '08:00:00'
+            },
+            {
+                date: '2023-11-11',
+                time: '12:27:00'
+            },
+            {
+                date: '2023-11-12',
+                time: '18:45:00'
+            },
+        ];
+
+        // Format the data to create JavaScript Date objects
+        var formattedData = data.map(function(point) {
+            return {
+                x: new Date(point.date),
+                y: new Date('1970-01-01T' + point.time)
+            };
+        });
+
+
+        var ctx = document.getElementById('leadScatterChart').getContext('2d');
+
+        // Create the scatter chart
+        var scatterChart = new Chart(ctx, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: 'Time vs Date',
+                    data: formattedData,
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        type: 'time',
+                        position: 'bottom',
+                        time: {
+                            unit: 'day', // Adjust the time unit as needed
+                        },
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        }
+                    },
+                    y: {
+                        type: 'time',
+                        position: 'left',
+                        time: {
+                            unit: 'hour', // Adjust the time unit as needed
+                        },
+                        title: {
+                            display: true,
+                            text: 'Time'
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

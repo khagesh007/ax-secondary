@@ -1,0 +1,2 @@
+<p class="text-center"><script>document.write(new Date().getFullYear())</script> © AX Secondary CRM</p>
+<?php /**PATH /Applications/XAMPP/xamppfiles/htdocs/ax_secondary/resources/views/errors/partials/_signature.blade.php ENDPATH**/ ?>

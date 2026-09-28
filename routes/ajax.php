@@ -1,0 +1,98 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+Route::group(["prefix" => "ajax", "as" => "ajax.", "middleware" => ['ajax']], function () {
+    Route::match(["get", "post"], "getAgents", [\App\Http\Controllers\AjaxController::class, "getAgents"])->name("getAgents");
+    Route::get('fetch_pf_location', [App\Http\Controllers\Api\ExternalApiController::class, 'fetchPfLocationData'])->name('fetchPfLocationData');
+    Route::get('get_community_details', [App\Http\Controllers\Api\ExternalApiController::class, 'getCommunityDetails'])->name('getCommunityDetails');
+    Route::get('get_sub_community_details', [App\Http\Controllers\Api\ExternalApiController::class, 'getSubCommunityDetails'])->name('getSubCommunityDetails');
+    Route::match(["get", "post"], "agentPropertySelect2", [\App\Http\Controllers\AjaxController::class, "agentPropertySelect2"])->name("agentPropertySelect2");
+    Route::match(["get", "post"], "agentContactSelect2", [\App\Http\Controllers\AjaxController::class, "agentContactSelect2"])->name("agentContactSelect2");
+    Route::match(["get", "post"], "agentLeadSelect2", [\App\Http\Controllers\AjaxController::class, "agentLeadSelect2"])->name("agentLeadSelect2");
+    Route::get('userDetails', [\App\Http\Controllers\AjaxController::class, "getUserDetails"])->name("getUser");
+    Route::get('pfMetaHtml', [\App\Http\Controllers\AjaxController::class, "getMetaHtml"])->name("getPfMetaHtml");
+    Route::match(["get", "post"], 'get-property-criteria', [\App\Http\Controllers\AjaxController::class, "propertyCriteria"])->name("PropertyCriteria");
+    Route::match(["get", "post"], "get-users-select2", [\App\Http\Controllers\AjaxController::class, "getUsersSelect2"])->name("getUsersSelect2");
+    Route::match(["get", "post"], "get-agents-select2", [\App\Http\Controllers\AjaxController::class, "getAgentsSelect2"])->name("getAgentsSelect2");
+    Route::match(["get", "post"], "get-child-users-select2", [\App\Http\Controllers\AjaxController::class, "getUsersByParentSelect2"])->name("getUsersByParentSelect2");
+    Route::match(["get", "post"], "communities", [\App\Http\Controllers\AjaxController::class, "communities"])->name("communities");
+    Route::match(["get", "post"], "sub-communities", [\App\Http\Controllers\AjaxController::class, "subCommunities"])->name("sub-communities");
+    Route::match(["get", "post"], "community-properties", [\App\Http\Controllers\AjaxController::class, "communityProperties"])->name("community-properties");
+    Route::match(["get", "post"], "user-community-properties", [\App\Http\Controllers\AjaxController::class, "userCommunityProperties"])->name("user-community-properties");
+    Route::match(["get", "post"], "user-sub-community-properties", [\App\Http\Controllers\AjaxController::class, "userSubCommunityProperties"])->name("user-sub-community-properties");
+    Route::match(["get", "post"], "user-sub-community-listing-leads", [\App\Http\Controllers\AjaxController::class, "userSubCommunityListingLeads"])->name("user-sub-community-listing-leads");
+    Route::match(["get", "post"], "sub-community-properties-select2", [\App\Http\Controllers\AjaxController::class, "subCommunityPropertiesSelect2"])->name("sub.community-properties.select2");
+    Route::match(["get", "post"], "sub-community-listing-lead-select2", [\App\Http\Controllers\AjaxController::class, "subCommunityListingLeadsSelect2"])->name("sub.community-listing-leads.select2");
+    Route::match(["get", "post"], "community-select2", [\App\Http\Controllers\AjaxController::class, "getCommunitiesSelect2"])->name("community.select2");
+    Route::match(["get", "post"], "community-by-regions-select2", [\App\Http\Controllers\AjaxController::class, "getCommunitiesByRegion"])->name("community.region.select2");
+    Route::match(["get", "post"], "sub-community-by-communities-select2", [\App\Http\Controllers\AjaxController::class, "getSubCommunityPropertiesByCommunitiesSelect2"])->name("sub-community.property.select2");
+    Route::match(["get", "post"], "community-property-by-sub-communities-select2", [\App\Http\Controllers\AjaxController::class, "getCommunityPropertiesBySubCommunitiesSelect2"])->name("community.property.select2");
+    Route::match(["get", "post"], "user-portals", [\App\Http\Controllers\AjaxController::class, "userPortals"])->name("user-portals");
+    Route::match(["get", "post"], "users-communities", [\App\Http\Controllers\AjaxController::class, "getUsersCommunity"])->name("community.getUsersCommunity.select2");
+    Route::match(["get", "post"], "user-sub-communities", [\App\Http\Controllers\AjaxController::class, "userSubCommunities"])->name("user-sub-communities");
+    Route::match(["get", "post"], "owners", [\App\Http\Controllers\AjaxController::class, "owners"])->name("owners");
+    Route::match(["get", "post"], "temp-property-photos", [\App\Http\Controllers\AjaxController::class, "tempPropertyPhotos"])->name("temp-property-photos");
+    Route::match(["get", "post"], "property-photos", [\App\Http\Controllers\AjaxController::class, "propertyPhotos"])->name("property-photos");
+    Route::match(["get", "post"], "property-documents", [\App\Http\Controllers\AjaxController::class, "propertyDocuments"])->name("property-documents");
+    Route::match(["get", "post"], "temp-property-documents", [\App\Http\Controllers\AjaxController::class, "temPropertyDocuments"])->name("temp-property-documents");
+    Route::match(["get", "post"], "contacts", [\App\Http\Controllers\AjaxController::class, "contacts"])->name("contacts");
+    Route::match(["get", "post"], "contacts-select2", [\App\Http\Controllers\AjaxController::class, "contactsSelect2"])->name("contacts.select2");
+    Route::match(["get", "post"], "leads", [\App\Http\Controllers\AjaxController::class, "leads"])->name("leads");
+    Route::match(["get", "post"], "leads-select2", [\App\Http\Controllers\AjaxController::class, "leadsSelect2"])->name("leads.select2");
+    Route::match(["get", "post"], "properties", [\App\Http\Controllers\AjaxController::class, "properties"])->name("properties");
+    Route::match(["get", "post"], "listing-lead-notes", [\App\Http\Controllers\AjaxController::class, "listingLeadNotes"])->name("lead-listing-notes");
+    Route::match(["get", "post"], "properties-select2", [\App\Http\Controllers\AjaxController::class, "propertySelect2"])->name("properties.select2");
+    Route::match(["get", "post"], "deal-properties-select2", [\App\Http\Controllers\AjaxController::class, "dealPropertySelect2"])->name("deal.properties.select2");
+    Route::match(["get", "post"], "user-properties-select2", [\App\Http\Controllers\AjaxController::class, "userPropertySelect2"])->name("user.properties.select2");
+    Route::match(["get", "post"], "property-notes", [\App\Http\Controllers\AjaxController::class, "propertyNotes"])->name("property-notes");
+    Route::match(["get", "post"], "agent-allocations", [\App\Http\Controllers\AjaxController::class, "agentAllocations"])->name("agent-allocations");
+    Route::match(["get", "post"], "portal-quotas", [\App\Http\Controllers\AjaxController::class, "portalQuotas"])->name("portal-quotas");
+    Route::match(["get", "post"], "load-users-tree", [\App\Http\Controllers\AjaxController::class, "usersTree"])->name("load-users-tree");
+    Route::match(["get", "post"], "is-value-unique", [\App\Http\Controllers\AjaxController::class, "isValueUnique"])->name("is-value-unique");
+    Route::match(["get", "post"], "lead-notes", [\App\Http\Controllers\AjaxController::class, "leadNotes"])->name("lead-notes");
+    Route::match(["get", "post"], "render-lead-notes", [\App\Http\Controllers\AjaxController::class, "renderLeadNotes"])->name("lead-notes-render");
+    Route::match(["get", "post"], "contact-notes", [\App\Http\Controllers\AjaxController::class, "contactNotes"])->name("contact-notes");
+    Route::match(["get", "post"], "deal-notes", [\App\Http\Controllers\AjaxController::class, "dealNotes"])->name("deal-notes");
+    Route::match(["get", "post"], "users-for-role", [\App\Http\Controllers\AjaxController::class, "usersForRole"])->name("users-for-role");
+    Route::match(["get", "post"], "lead-sub-statuses", [\App\Http\Controllers\AjaxController::class, "leadSubStatuses"])->name("lead-sub-statuses");
+    Route::match(["get", "post"], "deal-sub-statuses", [\App\Http\Controllers\AjaxController::class, "dealSubStatuses"])->name("deal-sub-statuses");
+    Route::match(["get", "post"], "states", [\App\Http\Controllers\AjaxController::class, "states"])->name("states");
+    Route::match(["get", "post"], "activity-log", [\App\Http\Controllers\AjaxController::class, "activityLog"])->name("activity-log");
+    Route::match(["get", "post"], "event-calendar", [\App\Http\Controllers\AjaxController::class, "eventCalendar"])->name("event-calendar");
+    Route::match(["get", "post"], "job-notes", [\App\Http\Controllers\AjaxController::class, "jobNotes"])->name("job-notes");
+    Route::match(["check-duplicate-listing", "post"], "checkDuplicateListing", [\App\Http\Controllers\AjaxController::class, "checkDuplicateListing"])->name("check_duplicate_listing");
+    Route::match(["get", "post"], "global-search", [\App\Http\Controllers\AjaxController::class, "globalSearch"])->name("globalSearch");
+
+    Route::match(["get", "post"], "checkSimilarListing", [\App\Http\Controllers\AjaxController::class, "checkSimilarListing"])->name("check_similar_listing");
+    Route::match(["get", "post"], "external-lead-duplicate-check", [\App\Http\Controllers\AjaxController::class, "externalListingLeadDuplicateCheck"])->name("externalListingLeadDuplicateCheck");
+
+    Route::match(["get", "post"], "get-agents-based-on-status", [\App\Http\Controllers\AjaxController::class, "getAgentsBasedOnStatus"])->name("getAgentsBasedOnStatus");
+    Route::match(["get", "post"], "get-all-agents", [\App\Http\Controllers\AjaxController::class, "getAllAgents"])->name("getAllAgents");
+    Route::match(["get", "post"], "user-auto-complete", [\App\Http\Controllers\AjaxController::class, "userAutoComplete"])->name("userAutoComplete");
+    Route::match(["get", "post"], "property-auto-complete", [\App\Http\Controllers\AjaxController::class, "propertyAutocomplete"])->name("propertyAutocomplete");
+    Route::match(["get", "post"], "lead-auto-complete", [\App\Http\Controllers\AjaxController::class, "leadsAutocomplete"])->name("leadsAutocomplete");
+
+    Route::post("generate-project-description", [\App\Http\Controllers\AjaxController::class, "generateDescriptionWithChatGpt"])->name("generateDescriptionWithChatGpt");
+    Route::post("generate-project-titles", [\App\Http\Controllers\AjaxController::class, "generateTitleWithChatGpt"])->name("generateTitleWithChatGpt");
+    Route::post("load-amenities", [\App\Http\Controllers\AjaxController::class, "loadAmenities"])->name("loadAmenities");
+    Route::post("save-amenities", [\App\Http\Controllers\AjaxController::class, "saveAmenities"])->name("saveAmenities");
+    Route::post("check-duplicate-lead", [\App\Http\Controllers\AjaxController::class, "checkDuplicateLead"])->name("checkDuplicateLead");
+    Route::post("update-user-permissions", [\App\Http\Controllers\AjaxController::class, "updatePermission"])->name("updatePermission");
+    Route::get("get-communities-for-select", [\App\Http\Controllers\AjaxController::class, "getCommunities"])->name("getCommunities");
+    Route::get("get-sub-communities-for-select", [\App\Http\Controllers\AjaxController::class, "getSubCommunities"])->name("getSubCommunities");
+    Route::post("get-deleted-documents", [\App\Http\Controllers\AjaxController::class, "getDeletedDocuments"])->name("getDeletedDocuments");
+    Route::post("update-deleted-documents", [\App\Http\Controllers\AjaxController::class, "updatePropertyDocument"])->name("updatePropertyDocument");
+
+    Route::match(["get", "post"], "get-republish-requests", [\App\Http\Controllers\AjaxController::class, "getRepublishRequests"])->name("getRepublishRequests");
+    Route::match(["get", "post"], "get-republish-requests-data", [\App\Http\Controllers\AjaxController::class, "getRepublishRequestsData"])->name("getRepublishRequestsData");
+    Route::match(["get", "post"], "response-to-republish-request", [\App\Http\Controllers\AjaxController::class, "republishRequestResponse"])->name("republishRequestResponse");
+    Route::match(["get", "post"], "portal-updated-data", [\App\Http\Controllers\AjaxController::class, "updatePortalMeta"])->name("updatePortalMeta");
+    Route::match(["get", "post"], "fetch-portal-updated-data", [\App\Http\Controllers\AjaxController::class, "fetchPortalMetaData"])->name("fetchPortalMetaData");
+    Route::match(["get", "post"], "fetch-portal-updated-data-agent", [\App\Http\Controllers\AjaxController::class, "fetchPortalMetaDataAgent"])->name("fetchPortalMetaDataAgent");
+    Route::match(["get", "post"], "fetch-property-day-count", [\App\Http\Controllers\AjaxController::class, "getNoOfDaysListingWasPublished"])->name("getNoOfDaysListingWasPublished");
+    Route::match(["get", "post"], "get-publish-permission", [\App\Http\Controllers\AjaxController::class, "getPermissionToPublish"])->name("getPermissionToPublish");
+    Route::match(["get", "post"], "check-eligibility-for-listing-transfer", [\App\Http\Controllers\AjaxController::class, "checkAgentEligibility"])->name("listing.checkAgentEligibility");
+});
+Route::get("ajax/bulk-rera-vaidate", [\App\Http\Controllers\AjaxController::class, "bulkReraCheck"])->name("ajax.bulkReraCheck");
+Route::post("agents-daily-reporting", [\App\Http\Controllers\AjaxController::class, "agentDailyReport"])->name("agentDailyReport");

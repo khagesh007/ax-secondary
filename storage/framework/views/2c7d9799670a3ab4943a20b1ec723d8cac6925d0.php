@@ -1,0 +1,524 @@
+ <style>
+     .vertical-navs-step .nav {
+         background-color: #fff;
+         color: rgba(0, 0, 0, 0.87);
+         transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+         background-color: rgb(255, 255, 255);
+         border-radius: 8px;
+         box-shadow: rgba(142, 142, 142, 0.2) 0px 1px 3px 0px, rgba(243, 243, 243, 0.14) 0px 1px 1px 0px, rgba(204, 204, 204, 0.12) 0px 2px 1px -1px;
+         -webkit-box-flex: 1;
+     }
+
+     .vertical-navs-step .nav .nav-link.active {
+         box-shadow: rgba(142, 142, 142, 0.2) 0px 1px 3px 0px, rgba(243, 243, 243, 0.14) 0px 1px 1px 0px, rgba(204, 204, 204, 0.12) 0px 2px 1px -1px;
+         -webkit-box-flex: 1;
+     }
+
+     .step-arrow-nav {
+         padding: 4px;
+         background-color: rgb(250, 250, 250);
+     }
+
+     .vertical-navs-step .nav .nav-link {
+         padding: 0px;
+         border: none;
+     }
+
+     .step-arrow-nav .nav .nav-link:before {
+         right: -13px;
+
+     }
+
+     .rmDark {
+         padding: 15px;
+         font-size: 13px;
+         text-align: left;
+         /*         border-radius: 0px 10px 10px 0px;*/
+     }
+
+     .randomClass {
+         background-color: #fff !important;
+         border: solid 0px #f1f3f4 !important;
+     }
+
+     .nav>.nav-link {
+         margin-left: 2px;
+     }
+
+     .nav-links {
+         margin-left: 2px;
+     }
+
+     .arrow-navtabs .nav-item .nav-link {
+         font-size: 13px;
+         padding: 2px 5px;
+     }
+
+     .navLinks {
+         position: relative;
+         text-align: center;
+         background: 0 0;
+         border: 0;
+         border-radius: 0.25rem;
+         font-size: 13px;
+         padding: 2px 5px;
+         margin-left: 2px;
+     }
+
+     .pr-0 {
+         padding-right: 0px;
+     }
+
+     .pl-0 {
+         padding-left: 0px;
+     }
+
+     .pl-40 {
+         padding-left: 40px !important;
+     }
+ </style>
+
+ <div class="col-xl-12">
+     <div class="card">
+         <div class="card-body form-steps">
+             <div class="row gy-2">
+                 <div class="step-arrow-nav mb-0" id="makeItDisable">
+
+
+
+                     <div class="col-lg-12 step-arrow-nav">
+                         <ul class="nav nav-pills custom-nav nav-justified" role="tablist" aria-orientation="horizontal">
+
+                             <?php $__currentLoopData = $statuses ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $status): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                 <li class="nav-item checkClass" role="presentation">
+
+
+
+                                     <a class="nav-link rmActive open_sub_status click_<?php echo e($status->name); ?>"
+                                         data-value="<?php echo e($status->name); ?>" data-status_id="<?php echo e($status->id); ?>"
+                                         data-status_name="<?php echo e($status->name); ?>"
+                                         data-badge="<?php echo e($status->badge ?? 'badge-soft-info'); ?>" data-bs-toggle="tab"
+                                         href="#arrow-profile<?php echo e($status->id); ?>" role="tab" aria-selected="false"
+                                         tabindex="-1" aria-selected="false" data-position="-1">
+                                         <span
+                                             class="rmDark d-none d-sm-block  badge  sub_<?php echo e($status->id); ?> randomClass status_<?php echo e($status->name); ?>">
+                                             <i class="<?php echo e($status->icon); ?> me-2"></i> <?php echo e($status->name); ?></span>
+                                     </a>
+                                 </li>
+
+                                 
+                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                         </ul>
+                         <!-- end nav -->
+                     </div>
+                 </div>
+                 <!-- end col-->
+                 <div class="col-lg-9">
+                     <div class="px-lg-4">
+                         <div class="tab-content">
+                             <div class="tab-pane fade show active">
+
+
+                                 <div>
+                                     <div class="row g-3">
+                                         <h5 class="mt-4">Basic Information</h5>
+                                         <div class="col-md-2 col-sm-12 mt-2 ">First Name <span class="contacted_req clear_req newlead_req qualified_req">*</span></div>
+                                         <div class="col-md-4 col-sm-12 mt-2">
+                                             <input type="text" class="form-control inputs applyValidation contacted qualified newlead" name="first_name"
+                                                 id="first_name" placeholder="Enter first name" required>
+                                             <div class="invalid-feedback"> Please enter first name. </div>
+                                         </div>
+                                         <div class="col-md-2  col-sm-12 mt-2">Whatsapp</div>
+                                         <div class="col-md-3  col-sm-12 mt-2 pr-0" id="whatsappDiv1">
+                                             <input type="text" class="form-control inputs" name="whatsapp"
+                                                 id="whatsapp" placeholder="Enter whatsapp number">
+                                             <div class="invalid-feedback"> Please enter a valid whatsapp number. </div>
+                                         </div>
+                                         <div class="col-1 mt-2" id="whatsappDiv2">
+                                             <a href="javascript:void(0);" title="Whatsapp Now" id="whatapp-button"
+                                                 class="avatar-title bg-success text-white fs-15 rounded ">
+                                                 <i class="ri-whatsapp-line"></i>
+                                             </a>
+                                         </div>
+                                         <div class="col-md-2  col-sm-12 mt-2">Last Name</div>
+                                         <div class="col-md-4  col-sm-12 mt-2">
+                                             <input type="text" class="form-control inputs" name="last_name"
+                                                 id="last_name" placeholder="Enter last name">
+                                             <div class="invalid-feedback"> Please enter last name. </div>
+                                         </div>
+                                         <div class="col-md-2  col-sm-12 mt-2">Phone</div>
+                                         <div class="col-md-4  col-sm-12 mt-2">
+                                             <input type="text" class="form-control inputs phone" name="phone"
+                                                 id="phone" placeholder="Enter phone">
+                                                 <div class="text-danger phoneValidation">
+
+                                                 </div>
+                                             <div class="invalid-feedback"> Please enter a valid phone number. </div>
+                                         </div>
+                                         <div class="col-md-2 col-sm-12 mt-2">Mobile <span class="notAnswered_req contacted_req clear_req newlead_req qualified_req">*</span></div>
+                                         <div class="col-md-3 col-sm-9 mt-2 pr-0" id="mobileDiv1">
+                                             <input type="tel" class="form-control pl-40 inputs applyValidation notAnswered contacted qualified newlead" name="mobile"
+                                                 id="mobile" required placeholder="Enter mobile">
+                                                 <div class="text-danger mobileValidation">
+                                                 </div>
+
+                                             <div class="invalid-feedback"> Please enter a valid mobile number. </div>
+                                             <div class="text-danger" id="mobile-exists"></div>
+                                         </div>
+                                         <div class="col-md-1 col-sm-3 mt-2" id="call_now_button"> <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->any([
+                                                 'Dial my lead',
+                                                 'Dial
+                                                 other lead',
+                                                 ])): ?>
+                                                 <a href="javascript:void(0);" title="Call Now" id="start-call-button"
+                                                     class="avatar-title bg-info text-white fs-15 rounded ">
+                                                     <i class="ri-phone-line"></i>
+                                                 </a>
+                                                 <a href="javascript:void(0);" title="Calling" id="calling-button"
+                                                     class="avatar-title bg-soft-success text-success fs-15 rounded d-none">
+                                                     <span class="d-flex align-items-center">
+                                                         <span class="spinner-grow flex-shrink-0" role="status">
+                                                             <span class="visually-hidden">Loading...</span>
+                                                         </span>
+                                                     </span>
+                                                 </a>
+                                             <?php endif; ?>
+                                         </div>
+                                         <div class="col-md-2 col-sm-12 mt-2">Email</div>
+                                         <div class="col-md-4 col-sm-12 mt-2">
+                                             <input type="email" class="form-control inputs" name="email"
+                                                 id="email" placeholder="Enter email address">
+                                             <div class="invalid-feedback"> Please enter a valid email address. </div>
+                                             <div class="text-danger" id="email-exists"></div>
+                                         </div>
+                                         <div class="col-md-2  col-sm-12 mt-2">Nationality</div>
+                                         <div class="col-md-4  col-sm-12 mt-2">
+                                             <select class="form-control select2 inputs" name="nationality_id"
+                                                 id="nationality_id">
+                                                 <option selected disabled value="">Select nationality </option>
+                                                 <?php $__currentLoopData = $countries ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $country): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                     <option value="<?php echo e($country->id); ?>">
+                                                         <?php echo e($country->nationality); ?>
+
+                                                     </option>
+                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                             </select>
+                                             <div class="invalid-feedback"> Please choose nationality. </div>
+                                         </div>
+                                         <div class="col-md-2 col-sm-12 mt-2">Gender</div>
+                                         <div class="col-md-4 col-sm-12 mt-2">
+                                             <select class="form-control select2 inputs" name="gender"
+                                                 id="gender">
+                                                 <option selected disabled value="">Select gender</option>
+                                                 <option value="Male">Male</option>
+                                                 <option value="Female">Female</option>
+                                             </select>
+                                             <div class="invalid-feedback"> Please choose gender. </div>
+                                         </div>
+                                         <div class="col-md-2 col-sm-12 mt-2">Date of birth</div>
+                                         <div class="col-md-4 col-sm-12 mt-2">
+                                             <input type="date" class="form-control inputs"
+                                                 name="dob"
+                                                 id="dob" placeholder="Enter date of birth" autocomplete="off">
+                                             <div class="invalid-feedback"> Please enter date of birth. </div>
+                                         </div>
+                                         <div class="col-md-2 col-sm-12 mt-2">Address</div>
+                                         <div class="col-md-4 col-sm-12 mt-2">
+                                             <input type="text" class="form-control inputs" name="address"
+                                                 id="address" placeholder="Enter address">
+                                             <div class="invalid-feedback"> Please enter address. </div>
+                                         </div>
+                                         
+                                     </div>
+
+                                 </div>
+                             </div>
+                             <!-- end tab pane -->
+                         </div>
+                         <!-- end tab content -->
+                     </div>
+                     
+
+                     <div class="px-lg-4" id="criteriaDiv">
+                         <div class="tab-content">
+                             <div class="">
+                                 <div class="row">
+
+
+
+                                     <h5 class="mt-2">Lead Criteria</h5>
+                                     <div class="col-md-2  col-sm-12 mt-2">Property <span class="qualified_req clear_req qualified_req property_req">*</span></div>
+                                     <div class="col-md-10 col-sm-12  mt-2">
+                                         <select class="form-control select2 inputs applyValidation" name="property_id"
+                                             id="property_id">
+                                             
+                                         </select>
+                                         <div class="invalid-feedback"> Please choose property. </div>
+                                     </div>
+
+                                     <div class="col-md-2 col-sm-12 mt-2">Purpose <span class="contacted_req clear_req qualified_req newlead_req">*</span></div>
+                                     <div class="col-md-4 col-sm-12 mt-2">
+                                         <select name='for[]' id="for" class="form-control select2 inputs applyValidation contacted qualified newlead"
+                                             multiple required>
+                                             <?php $__currentLoopData = \App\Models\Lead::FOR_SELECT ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                 <?php if(
+                                                     $key == 'Unspecified' &&
+                                                         auth()->user()->hasRole('Agent')): ?>
+                                                 <?php else: ?>
+                                                     <option value="<?php echo e($key); ?>"><?php echo e($value); ?></option>
+                                                 <?php endif; ?>
+                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                         </select>
+                                         <div class="invalid-feedback"> Please choose lead for. </div>
+                                     </div>
+
+                                     <div class="col-md-2 col-sm-12 mt-2">Furnished</div>
+                                     <div class="col-md-4 col-sm-12 mt-2">
+                                         <select class="form-control select2 inputsCriteria inputs" id="furnished"
+                                             name="furnished">
+                                             <option value="" selected disabled>Select</option>
+                                             <option value="FURNISHED">Furnished</option>
+                                             <option value="SEMI_FURNISHED">Semi Furnished</option>
+                                             <option value="UNFURNISHED">Unfurnished</option>
+                                         </select>
+                                     </div>
+
+                                 </div>
+
+
+
+                                 <div class="" id="criteriaFormDiv">
+
+
+                                     <div class="row  mt-2 align-items-center">
+                                         <div class="col-md-2 col-sm-12 mt-2">Community</div>
+                                         <div class="col-md-4 col-sm-12 mt-2">
+                                             <select class="select2 inputsCriteria inputs" multiple id="communities"
+                                                 name="communities[]"></select>
+                                         </div>
+                                         <div class="col-md-2 col-sm-12 mt-2">Location</div>
+                                         <div class="col-md-4 col-sm-12 mt-2">
+                                             <input type="hidden" name="locations" id="locations">
+                                             <select class="select2 inputsCriteria inputs" multiple
+                                                 id="sub_communities" name="sub_communities[]"></select>
+                                         </div>
+
+                                     </div>
+
+                                     
+                                     <div class="row">
+
+
+
+                                     </div>
+                                     <div class="row">
+                                         <div class="col-md-2 col-sm-12 mt-2">Beds</div>
+                                         <div class="col-md-2 col-sm-12 mt-2">
+                                             <?php echo csrf_field(); ?>
+                                             <input type="hidden" class="inputsCriteria" name="lead_id"
+                                                 id="criteria_lead_id">
+                                             <input type="hidden" class="inputsCriteria" name="criteria_id"
+                                                 id="criteria_id">
+                                             <select class="form-control inputsCriteria select2 inputs"
+                                                 name="min_bed_id" id="min_bed_id">
+                                                 <option value="" selected disabled>Select</option>
+                                                 <?php $__currentLoopData = $beds; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $bed): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                     <option value="<?php echo e($bed->id); ?>">
+                                                         <?php echo e($bed->name); ?></option>
+                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                             </select>
+                                             <div class="invalid-feedback">
+                                                 Please choose an option.
+                                             </div>
+                                         </div>
+                                         <div class="col-md-2 col-sm-12 mt-2">
+                                             <select class="form-control inputsCriteria select2 inputs"
+                                                 name="max_bed_id" id="max_bed_id">
+                                                 <option value="" selected disabled>Select</option>
+                                                 <?php $__currentLoopData = $beds; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $bed): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                     <option value="<?php echo e($bed->id); ?>">
+                                                         <?php echo e($bed->name); ?></option>
+                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                             </select>
+                                             <div class="invalid-feedback">
+                                                 Please choose an option.
+                                             </div>
+                                         </div>
+                                         <div class="col-md-2 col-sm-12 mt-2">Baths</div>
+                                         <div class="col-md-2 col-sm-12 mt-2">
+                                             <select class="form-control inputsCriteria select2 inputs"
+                                                 name="min_bath_id" id="min_bath_id">
+                                                 <option value="" selected disabled>Select</option>
+                                                 <?php $__currentLoopData = $baths; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $bath): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                     <option value="<?php echo e($bath->id); ?>">
+                                                         <?php echo e($bath->name); ?></option>
+                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                             </select>
+                                             <div class="invalid-feedback">
+                                                 Please choose an option.
+                                             </div>
+                                         </div>
+                                         <div class="col-md-2 col-sm-12 mt-2">
+                                             <select class="form-control inputsCriteria select2 inputs"
+                                                 name="max_bath_id" id="max_bath_id">
+                                                 <option value="" selected disabled>Select</option>
+                                                 <?php $__currentLoopData = $baths; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $bath): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                     <option value="<?php echo e($bath->id); ?>">
+                                                         <?php echo e($bath->name); ?></option>
+                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                             </select>
+                                             <div class="invalid-feedback">
+                                                 Please choose an option.
+                                             </div>
+                                         </div>
+                                     </div>
+
+                                     <div class="row  mt-2 align-items-center">
+                                         <div class="col-md-2 col-sm-12 mt-2">Budget</div>
+
+                                         <div class="col-md-2 col-sm-12 mt-2">
+                                             <input type="text" class="form-control inputsCriteria inputs"
+                                                 id="min_price" name="min_price" placeholder="Min Budget">
+                                             
+                                         </div>
+
+                                         <div class="col-md-2 col-sm-12 mt-2">
+                                             <input type="text" class="form-control inputsCriteria inputs"
+                                                 id="max_price" name="max_price" placeholder="Max Budget">
+
+                                             
+                                         </div>
+
+                                         <div class="col-md-2 col-sm-12 mt-2">View</div>
+                                         <div class="col-md-4 col-sm-12 mt-2">
+                                             <select class="form-control select2 inputs" name="view[]"
+                                                 id="view" multiple>
+                                                 <?php $__currentLoopData = \App\Models\Property::VIEWS ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                     <option value="<?php echo e($key); ?>"><?php echo e($value); ?></option>
+                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                                             </select>
+                                             <div class="invalid-feedback">
+                                                 Please choose an option.
+                                             </div>
+                                         </div>
+
+
+                                     </div>
+                                     <div class="row mt-2">
+
+                                         
+                                     </div>
+                                     
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+
+
+                 </div>
+                 <!-- end col -->
+                 <div class="col-lg-3">
+                     <div class="row g-2">
+                         <h5 class="mt-3">Actions</h5>
+
+                         
+
+                         
+
+                         <?php if (! (auth()->user()->hasRole(['Telesales Head', 'Telesales']))): ?>
+                         <?php echo $__env->make('admin.templates.agents_select2_form', ['id' => 'agent_id', 'label' => 'Agents','agents' => $agents ??[],'layout' => 'vertical','required' => 'false'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+                         <?php endif; ?>
+
+
+                         
+
+
+                         <?php if($types->count() > 0): ?>
+
+                             <div class="col-md-12">
+                                 <label for="zip" class="form-label">Lead Type <span class="contacted_req clear_req newlead_req qualified_req">*</span></label>
+                                 <select class="form-control select2 inputs applyValidation contacted qualified newlead" name="type_id" id="type_id" required="true">
+                                     <?php $__currentLoopData = $types ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $type): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                         <option value="<?php echo e($type->id); ?>"><?php echo e($type->name); ?></option>
+                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                 </select>
+                                 <div class="invalid-feedback"> Please choose lead type. </div>
+                             </div>
+                         <?php endif; ?>
+
+                         <div class="col-md-12">
+                             <label for="zip" class="form-label">Lead Source<span class="qualified_req clear_req newlead_req">*</span>  </label>
+                             <select class="form-control select2 inputs applyValidation qualified newlead" name="source_id" id="source_id" required>
+                                 <?php $__currentLoopData = $sources ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $src): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                     <option value="<?php echo e($src->id); ?>"><?php echo e($src->name); ?></option>
+                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                             </select>
+                             <div class="invalid-feedback"> Please choose lead source. </div>
+                         </div>
+                         <div class="col-md-12">
+                             <label for="zip" class="form-label">Lead Medium <span class="qualified_req clear_req newlead_req">*</span></label>
+                             <select class="form-control select2 inputs applyValidation qualified newlead" name="lead_medium_id" id="lead_medium_id"
+                                 required>
+                                 <option value="" selected disabled>Select Medium</option>
+                                 <?php $__currentLoopData = $mediums ?? []; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $src): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                     <option value="<?php echo e($src->id); ?>"><?php echo e($src->name); ?></option>
+                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                             </select>
+                             <div class="invalid-feedback"> Please choose lead Medium. </div>
+                         </div>
+                         <div class="col-12" id="messageDiv">
+                             <label for="message" class="form-label">Message from Customer</label>
+
+                             <textarea name="message" class="form-control inputs" id="message" rows="5"></textarea>
+                         </div>
+                         <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Convert to Listing Lead')): ?>
+                         <div class="col-12 text-end mt-3 d-none" id="listingLeadConversion">
+                            <div class="d-grid gap-2">
+                                <button id="listingConvertor" type="button" class="btn btn-primary action-export d-none">Convert to Listing
+                                    Lead</button>
+                                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check(['View Listing Lead','List Listing Lead'])): ?>
+                                    <a id="viewListingLead" type="button" class="btn btn-primary d-none">View Listing Lead</a>
+                                    <?php endif; ?>
+                            </div>
+                        </div>
+                         <?php endif; ?>
+
+
+
+
+
+                         <div class="col-12 text-end mt-3 d-none"id="responseDiv">
+                             <div class="card">
+                                 <div class="card-body text-center">
+                                     <h6 class="card-title mb-3 flex-grow-1 text-start">Whatsapp Response Time</h6>
+                                     <div class="mb-2">
+                                         <lord-icon src="https://cdn.lordicon.com/kbtmbyzy.json" trigger="loop"
+                                             colors="primary:#405189,secondary:#02a8b5"
+                                             style="width:90px;height:90px"></lord-icon>
+                                     </div>
+                                     <h5 class="mb-1"><span id="leadResponseTime"></span></strong></h3>
+
+                                 </div>
+                             </div>
+                         </div>
+
+                         <div class="col-12 d-none" id="reasonDiv">
+                             <hr>
+                             <label for="message" class="form-label">Unsuccessful Reason</label>
+                             <p class="mb-1"><span id="unsuccessfull_reason"></span></strong></h3>
+                         </div>
+
+
+
+                     </div>
+                 </div>
+
+
+             </div>
+             <!-- end row -->
+         </div>
+     </div>
+ </div>
+<?php /**PATH /Applications/XAMPP/xamppfiles/htdocs/ax_secondary/resources/views/admin/lead/include/form.blade.php ENDPATH**/ ?>

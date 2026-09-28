@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<realty-feed>
+  <generation-date>2023-06-14T17:10:33+04:00</generation-date>
+  <offer internal-id="axc-3962437"/>
+  <category>apartment</category>
+  <type>rent</type>
+  <creation-date>2023-05-04T12:31:30+04:00</creation-date>
+  <location>
+    <address locale="en"><![CDATA[AZIZI Riviera, Meydan One, Meydan, Dubai]]></address>
+    <latitude>25.17372788145</latitude>
+    <longitude>55.31094144099</longitude>
+  </location>
+  <sales-agent>
+    <name><![CDATA[khagesh chandrakar]]></name>
+    <image><![CDATA[https://ui-avatars.com/api/?name=khagesh+chandrakar&color=7F9CF5&background=EBF4FF]]></image>
+    <phone>07000700161</phone>
+  </sales-agent>
+  <price>
+    <value>65000</value>
+    <currency>AED</currency>
+  </price>
+  <area>
+    <value>498.05</value>
+    <unit>sqf</unit>
+  </area>
+  <room-space>
+    <value></value>
+    <unit></unit>
+  </room-space>
+  <rooms></rooms>
+  <image tag="plan"><![CDATA[https://s3.eu-west-1.amazonaws.com/secondary.crm/images/168674823320230614171033glvFuQeT1K.jpg]]></image>
+  <renovation>clean</renovation>
+  <description locale="ru"><![CDATA[]]></description>
+  <description locale="en"><![CDATA[AX CAPITAL Real Estate is offering to the market this 1-bedroom in the very popular Azizi Riviera development located in the Maydan 1 Area.
+
+PROPERTY FEATURES: 
+- 498 sqft 
+- Community view
+- Swimming pool
+- BBQ seating area
+- Bocce Area
+- Zen Garden
+- Yoga Zone
+- Pets Agility Area
+- Lounge with Movie Night
+- Outdoor Chess Play Area
+
+For further details or to arrange a viewing please contact us today with your specific requirements.
+ 
+AX CAPITAL was built upon a desire to create a real estate agency of the modern era where the customer is central to everything we do. Every business decision that we make is thoroughly assessed to be synchronized with the latest trends in the real estate industry which includes our recruitment of top-class real estate experts and the use of state-of-the-art technologies to serve our mission. With our values clearly defined, we are committed to continuously evolving as a real estate agency and it is this passion and dedication that marks the foundation of AX CAPITAL and makes us different.
+
+Ask us about:
+- Off-Plan
+- Property Management
+- Interior Design (AX Design)
+- Exclusive Off-Plan
+- Short Term Renal (AX Holidays)]]></description>
+  <bedrooms>2</bedrooms>
+  <bathrooms>1</bathrooms>
+  <floor></floor>
+  <floors-total></floors-total>
+  <completion-year></completion-year>
+  <completion-quarter></completion-quarter>
+  <lift></lift>
+  <ceiling-height>
+    <value></value>
+    <unit>meter</unit>
+  </ceiling-height>
+  <living-space>
+    <value></value>
+    <unit>sqm</unit>
+  </living-space>
+  <kitchen-space>
+    <value></value>
+    <unit>sqm</unit>
+  </kitchen-space>
+  <balcony></balcony>
+  <studio></studio>
+  <building-state></building-state>
+  <complex-id></complex-id>
+  <building-id></building-id>
+  <virtual-tour></virtual-tour>
+  <youtube-video-review></youtube-video-review>
+  <facility>Balcony</facility>
+  <facility>Basement Parking</facility>
+  <parking-places free="yes"><![CDATA[1]]></parking-places>
+</realty-feed>

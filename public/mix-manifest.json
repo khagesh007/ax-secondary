@@ -1,0 +1,18 @@
+{
+    "/vue/js/vue.js": "/vue/js/vue.js",
+    "/vue/js/vueWidgets.js": "/vue/js/vueWidgets.js",
+    "/vue/js/quiz.js": "/vue/js/quiz.js",
+    "/vue/js/dashboard.js": "/vue/js/dashboard.js",
+    "/vue/js/agentDashboard.js": "/vue/js/agentDashboard.js",
+    "/vue/js/kpi.js": "/vue/js/kpi.js",
+    "/vue/js/match-listings.js": "/vue/js/match-listings.js",
+    "/vue/js/matching.js": "/vue/js/matching.js",
+    "/vue/js/search-listings.js": "/vue/js/search-listings.js",
+    "/vue/js/admin-dashboard.js": "/vue/js/admin-dashboard.js",
+    "/vue/js/listing-verifications.js": "/vue/js/listing-verifications.js",
+    "/vue/js/pipeline.js": "/vue/js/pipeline.js",
+    "/vue/js/consolidatedReport.js": "/vue/js/consolidatedReport.js",
+    "/vue/css/app.css": "/vue/css/app.css",
+    "/vue/js/flatpickr.min.js": "/vue/js/flatpickr.min.js",
+    "/vue/css/flatpickr.min.css": "/vue/css/flatpickr.min.css"
+}
